@@ -11,6 +11,12 @@
             "otherEntityField": "login",
             "ownerSide": true,
             "otherEntityRelationshipName": "trader"
+        },
+        {
+            "relationshipName": "bond",
+            "otherEntityName": "bond",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "trader"
         }
     ],
     "fields": [],

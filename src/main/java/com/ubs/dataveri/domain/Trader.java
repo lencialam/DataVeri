@@ -1,10 +1,13 @@
 package com.ubs.dataveri.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -25,6 +28,10 @@ public class Trader implements Serializable {
     @MapsId
     private User user;
 
+    @OneToMany(mappedBy = "trader")
+    @JsonIgnore
+    private Set<Bond> bonds = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -44,6 +51,31 @@ public class Trader implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Bond> getBonds() {
+        return bonds;
+    }
+
+    public Trader bonds(Set<Bond> bonds) {
+        this.bonds = bonds;
+        return this;
+    }
+
+    public Trader addBond(Bond bond) {
+        this.bonds.add(bond);
+        bond.setTrader(this);
+        return this;
+    }
+
+    public Trader removeBond(Bond bond) {
+        this.bonds.remove(bond);
+        bond.setTrader(null);
+        return this;
+    }
+
+    public void setBonds(Set<Bond> bonds) {
+        this.bonds = bonds;
     }
 
     @Override
