@@ -21,11 +21,12 @@ public class Trader implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne(optional = false)
     @NotNull
-    @MapsId
+    @JoinColumn(unique = true)
     private User user;
 
     @OneToMany(mappedBy = "trader")

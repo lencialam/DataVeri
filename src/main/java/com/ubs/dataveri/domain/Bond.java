@@ -5,6 +5,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -39,8 +40,8 @@ public class Bond implements Serializable {
     private Long position;
 
     @NotNull
-    @Column(name = "pnl", nullable = false)
-    private Long pnl;
+    @Column(name = "pnl", precision=10, scale=2, nullable = false)
+    private BigDecimal pnl;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -106,16 +107,16 @@ public class Bond implements Serializable {
         this.position = position;
     }
 
-    public Long getPnl() {
+    public BigDecimal getPnl() {
         return pnl;
     }
 
-    public Bond pnl(Long pnl) {
+    public Bond pnl(BigDecimal pnl) {
         this.pnl = pnl;
         return this;
     }
 
-    public void setPnl(Long pnl) {
+    public void setPnl(BigDecimal pnl) {
         this.pnl = pnl;
     }
 

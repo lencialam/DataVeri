@@ -155,6 +155,12 @@ public class UserService {
         userRepository.save(user);
         userSearchRepository.save(user);
         log.debug("Created Information for User: {}", user);
+        // Create and save the UserExtra entity
+        Trader newTrader = new Trader();
+        newTrader.setUser(user);
+        traderRepository.save(newTrader);
+        traderSearchRepository.save(newTrader);
+        log.debug("Created Information for Trader: {}", newTrader);
         return user;
     }
 
@@ -213,6 +219,10 @@ public class UserService {
             userRepository.delete(user);
             userSearchRepository.delete(user);
             log.debug("Deleted User: {}", user);
+            // Delete the related Trader
+            traderRepository.delete(user.getId());
+            traderSearchRepository.delete(user.getId());
+            log.debug("Deleted Trader linked with: {}", user);
         });
     }
 
@@ -257,6 +267,10 @@ public class UserService {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
             userSearchRepository.delete(user);
+            // Delete the related Trader
+            traderRepository.delete(user.getId());
+            traderSearchRepository.delete(user.getId());
+            log.debug("Deleted Trader linked with: {}", user);
         }
     }
 

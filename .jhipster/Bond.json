@@ -44,7 +44,7 @@
         },
         {
             "fieldName": "pnl",
-            "fieldType": "Long",
+            "fieldType": "BigDecimal",
             "fieldValidateRules": [
                 "required"
             ]

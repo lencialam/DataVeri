@@ -38,7 +38,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="pnl" type="bigint">
+            <column name="pnl" type="decimal(10,2)">
                 <constraints nullable="false" />
             </column>
 

@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,8 +52,8 @@ public class BondResourceIntTest {
     private static final Long DEFAULT_POSITION = 1L;
     private static final Long UPDATED_POSITION = 2L;
 
-    private static final Long DEFAULT_PNL = 1L;
-    private static final Long UPDATED_PNL = 2L;
+    private static final BigDecimal DEFAULT_PNL = new BigDecimal(1);
+    private static final BigDecimal UPDATED_PNL = new BigDecimal(2);
 
     @Autowired
     private BondRepository bondRepository;
