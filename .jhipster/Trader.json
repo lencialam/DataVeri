@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "trader"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20170702033505",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "trader",
+    "pagination": "pager"
+}
