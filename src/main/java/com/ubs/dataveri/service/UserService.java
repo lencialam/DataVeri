@@ -2,9 +2,12 @@ package com.ubs.dataveri.service;
 
 import com.ubs.dataveri.domain.Authority;
 import com.ubs.dataveri.domain.User;
+import com.ubs.dataveri.domain.Trader;
 import com.ubs.dataveri.repository.AuthorityRepository;
 import com.ubs.dataveri.config.Constants;
+import com.ubs.dataveri.repository.TraderRepository;
 import com.ubs.dataveri.repository.UserRepository;
+import com.ubs.dataveri.repository.search.TraderSearchRepository;
 import com.ubs.dataveri.repository.search.UserSearchRepository;
 import com.ubs.dataveri.security.AuthoritiesConstants;
 import com.ubs.dataveri.security.SecurityUtils;
@@ -42,11 +45,17 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository) {
+    private final TraderRepository traderRepository;
+
+    private final TraderSearchRepository traderSearchRepository;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, TraderRepository traderRepository, TraderSearchRepository traderSearchRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userSearchRepository = userSearchRepository;
         this.authorityRepository = authorityRepository;
+        this.traderRepository = traderRepository;
+        this.traderSearchRepository = traderSearchRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -109,6 +118,13 @@ public class UserService {
         userRepository.save(newUser);
         userSearchRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
+
+        // Create and save the UserExtra entity
+        Trader newTrader = new Trader();
+        newTrader.setUser(newUser);
+        traderRepository.save(newTrader);
+        traderSearchRepository.save(newTrader);
+        log.debug("Created Information for Trader: {}", newTrader);
         return newUser;
     }
 
