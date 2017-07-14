@@ -1,0 +1,71 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "trader",
+            "otherEntityName": "trader",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "tradeId",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "tradeTime",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "symbol",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "^[a-zA-Z0-9]*$"
+        },
+        {
+            "fieldName": "product",
+            "fieldType": "ProductType",
+            "fieldValues": "Stock,Bond,Forex",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "TransactionType",
+            "fieldValues": "Put,Call",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "strikePrice",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "cash",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "changelogDate": "20170714134229",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "transaction",
+    "pagination": "pager"
+}
