@@ -1,10 +1,13 @@
 package com.ubs.dataveri.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -26,6 +29,14 @@ public class Trader implements Serializable {
     @JoinColumn(unique = true)
     private User user;
 
+    @OneToMany(mappedBy = "trader")
+    @JsonIgnore
+    private Set<Transaction> transactions = new HashSet<>();
+
+    @OneToMany(mappedBy = "trader")
+    @JsonIgnore
+    private Set<Report> reports = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -45,6 +56,56 @@ public class Trader implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public Trader transactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
+        return this;
+    }
+
+    public Trader addTransaction(Transaction transaction) {
+        this.transactions.add(transaction);
+        transaction.setTrader(this);
+        return this;
+    }
+
+    public Trader removeTransaction(Transaction transaction) {
+        this.transactions.remove(transaction);
+        transaction.setTrader(null);
+        return this;
+    }
+
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
+    public Set<Report> getReports() {
+        return reports;
+    }
+
+    public Trader reports(Set<Report> reports) {
+        this.reports = reports;
+        return this;
+    }
+
+    public Trader addReport(Report report) {
+        this.reports.add(report);
+        report.setTrader(this);
+        return this;
+    }
+
+    public Trader removeReport(Report report) {
+        this.reports.remove(report);
+        report.setTrader(null);
+        return this;
+    }
+
+    public void setReports(Set<Report> reports) {
+        this.reports = reports;
     }
 
     @Override

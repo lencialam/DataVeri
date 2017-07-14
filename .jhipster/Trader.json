@@ -11,6 +11,18 @@
             "otherEntityField": "login",
             "ownerSide": true,
             "otherEntityRelationshipName": "trader"
+        },
+        {
+            "relationshipName": "transaction",
+            "otherEntityName": "transaction",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "trader"
+        },
+        {
+            "relationshipName": "report",
+            "otherEntityName": "report",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "trader"
         }
     ],
     "fields": [],

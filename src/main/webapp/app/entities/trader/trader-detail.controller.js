@@ -5,9 +5,9 @@
         .module('dataVeriApp')
         .controller('TraderDetailController', TraderDetailController);
 
-    TraderDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Trader', 'User'];
+    TraderDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Trader', 'User', 'Transaction', 'Report'];
 
-    function TraderDetailController($scope, $rootScope, $stateParams, previousState, entity, Trader, User) {
+    function TraderDetailController($scope, $rootScope, $stateParams, previousState, entity, Trader, User, Transaction, Report) {
         var vm = this;
 
         vm.trader = entity;
