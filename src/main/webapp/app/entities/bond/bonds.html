@@ -38,10 +38,13 @@
                     <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="tradeId"><span>Trade Id</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="symbol"><span>Symbol</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="quote"><span>Quote</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="quote"><span>Internal Quote</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="position"><span>Position</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="pnl"><span>Pnl</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="trader.id"><span>Trader</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th><span>Bloomberg Quote</span></th>
+                    <th><span>Pnl (Calculated with Bloomberg Quote)</span></th>
+                    <th>Difference</th>
                     <th></th>
                 </tr>
             </thead>
@@ -54,10 +57,20 @@
                     <td>{{bond.position}}</td>
                     <td>{{bond.pnl}}</td>
                     <td>
-                        <a ui-sref="trader-detail({id:bond.trader.id})">{{bond.trader.id}}</a>
+                        <a ui-sref="trader-detail({id:bond.trader.id})">{{bond.trader.user.login}}</a>
                     </td>
+                    <td>{{bond.bloombergQuote}}</td>
+                    <td>{{bond.bloombergPnl}}</td>
+                    <td>{{bond.bloombergPnl - bond.pnl}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="bond.edit({id:bond.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down">Amend</span>
+                            </button>
+                            <!--
                             <button type="submit"
                                     ui-sref="bond-detail({id:bond.id})"
                                     class="btn btn-info btn-sm">
@@ -76,6 +89,7 @@
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-sm-down"></span>
                             </button>
+                            -->
                         </div>
                     </td>
                 </tr>

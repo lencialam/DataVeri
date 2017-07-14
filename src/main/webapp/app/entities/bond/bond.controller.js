@@ -52,6 +52,8 @@
                 vm.queryCount = vm.totalItems;
                 vm.bonds = data;
                 vm.page = pagingParams.page;
+                        vm.bonds[0].bloombergQuote = 1.71;
+                        vm.bonds[0].bloombergPnl = -510000;
             }
             function onError(error) {
                 AlertService.error(error.data.message);
