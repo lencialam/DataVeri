@@ -4,15 +4,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <!--
-        Added the constraints for entity Bond.
+        Added the constraints for entity Trader.
     -->
-    <changeSet id="20170702154615-2" author="jhipster">
+    <changeSet id="20170714091544-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="trader_id"
-                                 baseTableName="bond"
-                                 constraintName="fk_bond_trader_id"
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="trader"
+                                 constraintName="fk_trader_user_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="trader"/>
+                                 referencedTableName="jhi_user"/>
 
     </changeSet>
 </databaseChangeLog>

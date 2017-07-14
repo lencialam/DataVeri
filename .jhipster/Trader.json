@@ -11,16 +11,10 @@
             "otherEntityField": "login",
             "ownerSide": true,
             "otherEntityRelationshipName": "trader"
-        },
-        {
-            "relationshipName": "bond",
-            "otherEntityName": "bond",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "trader"
         }
     ],
     "fields": [],
-    "changelogDate": "20170702033505",
+    "changelogDate": "20170714091544",
     "dto": "no",
     "service": "no",
     "entityTableName": "trader",

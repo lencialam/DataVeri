@@ -78,7 +78,6 @@ public class AccountResource {
                             managedUserVM.getLangKey());
 
                     mailService.sendActivationEmail(user);
-                    log.debug("Activation email sent to: ", user.getEmail());
                     return new ResponseEntity<>(HttpStatus.CREATED);
                 })
         );

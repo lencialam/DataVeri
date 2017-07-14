@@ -50,18 +50,10 @@ spring:
                     logs: target/elasticsearch/log
                     data: target/elasticsearch/data
     mail:
-        host: smtp.gmail.com
-        port: 587
-        #Replace this field with your Gmail username.
-        username: ubsdataveri
-        #Replace this field with your Gmail password.
-        password: adminadmin
-        protocol: smtp
-        tls: true
-        properties.mail.smtp:
-            auth: true
-            starttls.enable: true
-            ssl.trust: smtp.gmail.com
+        host: localhost
+        port: 25
+        username:
+        password:
     messages:
         cache-seconds: 1
     thymeleaf:
