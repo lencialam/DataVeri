@@ -1,0 +1,105 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myReportLabel">Create or edit a Report</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.report.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.report.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_symbol">Symbol</label>
+            <input type="text" class="form-control" name="symbol" id="field_symbol"
+                    ng-model="vm.report.symbol"
+                    required ng-pattern="/^[a-zA-Z0-9]*$/"/>
+            <div ng-show="editForm.symbol.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.symbol.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.symbol.$error.pattern" translate-value-pattern="Symbol">
+                    This field should follow pattern for "Symbol".
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_product">Product</label>
+            <select class="form-control" name="product" ng-model="vm.report.product" id="field_product" required>
+                <option value="Stock">Stock</option>
+                <option value="Bond">Bond</option>
+                <option value="Forex">Forex</option>
+            </select>
+            <div ng-show="editForm.product.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.product.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_position">Position</label>
+            <input type="number" class="form-control" name="position" id="field_position"
+                    ng-model="vm.report.position"
+                    required/>
+            <div ng-show="editForm.position.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.position.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.position.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_internalClose">Internal Close</label>
+            <input type="number" class="form-control" name="internalClose" id="field_internalClose"
+                    ng-model="vm.report.internalClose"
+                    required/>
+            <div ng-show="editForm.internalClose.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.internalClose.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.internalClose.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_internalPnl">Internal Pnl</label>
+            <input type="number" class="form-control" name="internalPnl" id="field_internalPnl"
+                    ng-model="vm.report.internalPnl"
+                    />
+        </div>
+
+        <div class="form-group">
+            <label for="field_trader">Trader</label>
+            <select class="form-control" id="field_trader" name="trader" ng-model="vm.report.trader" ng-options="trader as trader.id for trader in vm.traders track by trader.id" required>
+            </select>
+        </div>
+        <div ng-show="editForm.trader.$invalid">
+            <p class="help-block"
+                ng-show="editForm.trader.$error.required">
+                This field is required.
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
