@@ -1,0 +1,48 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "report",
+            "otherEntityName": "report",
+            "relationshipType": "one-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "reconciliation"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "symbol",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "^[a-zA-Z0-9]*$"
+        },
+        {
+            "fieldName": "product",
+            "fieldType": "ProductType",
+            "fieldValues": "Stock,Bond,Forex"
+        },
+        {
+            "fieldName": "position",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "close",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "pnl",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "changelogDate": "20170714150616",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "reconciliation",
+    "pagination": "pager"
+}

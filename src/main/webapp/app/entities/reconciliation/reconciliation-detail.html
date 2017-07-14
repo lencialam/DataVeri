@@ -1,0 +1,43 @@
+
+<div>
+    <h2><span>Reconciliation</span> {{vm.reconciliation.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Symbol</span></dt>
+        <dd>
+            <span>{{vm.reconciliation.symbol}}</span>
+        </dd>
+        <dt><span>Product</span></dt>
+        <dd>
+            <span>{{vm.reconciliation.product}}</span>
+        </dd>
+        <dt><span>Position</span></dt>
+        <dd>
+            <span>{{vm.reconciliation.position}}</span>
+        </dd>
+        <dt><span>Close</span></dt>
+        <dd>
+            <span>{{vm.reconciliation.close}}</span>
+        </dd>
+        <dt><span>Pnl</span></dt>
+        <dd>
+            <span>{{vm.reconciliation.pnl}}</span>
+        </dd>
+        <dt><span>Report</span></dt>
+        <dd>
+            <a ui-sref="report-detail({id:vm.reconciliation.report.id})">{{vm.reconciliation.report.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="reconciliation-detail.edit({id:vm.reconciliation.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>
