@@ -1,5 +1,6 @@
 package com.ubs.dataveri.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
@@ -48,6 +49,10 @@ public class Report implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private Trader trader;
+
+    @OneToOne(mappedBy = "report")
+    @JsonIgnore
+    private Reconciliation reconciliation;
 
     public Long getId() {
         return id;
@@ -133,6 +138,19 @@ public class Report implements Serializable {
 
     public void setTrader(Trader trader) {
         this.trader = trader;
+    }
+
+    public Reconciliation getReconciliation() {
+        return reconciliation;
+    }
+
+    public Report reconciliation(Reconciliation reconciliation) {
+        this.reconciliation = reconciliation;
+        return this;
+    }
+
+    public void setReconciliation(Reconciliation reconciliation) {
+        this.reconciliation = reconciliation;
     }
 
     @Override

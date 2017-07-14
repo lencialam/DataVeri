@@ -5,15 +5,16 @@
         .module('dataVeriApp')
         .controller('ReportDialogController', ReportDialogController);
 
-    ReportDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Report', 'Trader'];
+    ReportDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Report', 'Trader', 'Reconciliation'];
 
-    function ReportDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Report, Trader) {
+    function ReportDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Report, Trader, Reconciliation) {
         var vm = this;
 
         vm.report = entity;
         vm.clear = clear;
         vm.save = save;
         vm.traders = Trader.query();
+        vm.reconciliations = Reconciliation.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
