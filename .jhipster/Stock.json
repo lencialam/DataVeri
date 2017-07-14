@@ -1,0 +1,33 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "symbol",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "^[a-zA-Z0-9]*$"
+        },
+        {
+            "fieldName": "quote",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "close",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "currency",
+            "fieldType": "CurrencyType",
+            "fieldValues": "USD,HKD,CNY"
+        }
+    ],
+    "changelogDate": "20170714145416",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "stock",
+    "pagination": "pager"
+}

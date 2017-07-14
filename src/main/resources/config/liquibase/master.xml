@@ -8,6 +8,7 @@
     <include file="classpath:config/liquibase/changelog/20170714091544_added_entity_Trader.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170714134229_added_entity_Transaction.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170714141213_added_entity_Report.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170714145416_added_entity_Stock.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20170714091544_added_entity_constraints_Trader.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170714134229_added_entity_constraints_Transaction.xml" relativeToChangelogFile="false"/>
