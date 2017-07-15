@@ -32,11 +32,11 @@
             "fieldType": "Long"
         },
         {
-            "fieldName": "close",
+            "fieldName": "internalClose",
             "fieldType": "Double"
         },
         {
-            "fieldName": "pnl",
+            "fieldName": "internalPnl",
             "fieldType": "BigDecimal"
         }
     ],

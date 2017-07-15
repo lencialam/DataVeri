@@ -50,11 +50,11 @@ public class ReconciliationResourceIntTest {
     private static final Long DEFAULT_POSITION = 1L;
     private static final Long UPDATED_POSITION = 2L;
 
-    private static final Double DEFAULT_CLOSE = 1D;
-    private static final Double UPDATED_CLOSE = 2D;
+    private static final Double DEFAULT_INTERNAL_CLOSE = 1D;
+    private static final Double UPDATED_INTERNAL_CLOSE = 2D;
 
-    private static final BigDecimal DEFAULT_PNL = new BigDecimal(1);
-    private static final BigDecimal UPDATED_PNL = new BigDecimal(2);
+    private static final BigDecimal DEFAULT_INTERNAL_PNL = new BigDecimal(1);
+    private static final BigDecimal UPDATED_INTERNAL_PNL = new BigDecimal(2);
 
     @Autowired
     private ReconciliationRepository reconciliationRepository;
@@ -99,8 +99,8 @@ public class ReconciliationResourceIntTest {
             .symbol(DEFAULT_SYMBOL)
             .product(DEFAULT_PRODUCT)
             .position(DEFAULT_POSITION)
-            .close(DEFAULT_CLOSE)
-            .pnl(DEFAULT_PNL);
+            .internalClose(DEFAULT_INTERNAL_CLOSE)
+            .internalPnl(DEFAULT_INTERNAL_PNL);
         // Add required entity
         Report report = ReportResourceIntTest.createEntity(em);
         em.persist(report);
@@ -133,8 +133,8 @@ public class ReconciliationResourceIntTest {
         assertThat(testReconciliation.getSymbol()).isEqualTo(DEFAULT_SYMBOL);
         assertThat(testReconciliation.getProduct()).isEqualTo(DEFAULT_PRODUCT);
         assertThat(testReconciliation.getPosition()).isEqualTo(DEFAULT_POSITION);
-        assertThat(testReconciliation.getClose()).isEqualTo(DEFAULT_CLOSE);
-        assertThat(testReconciliation.getPnl()).isEqualTo(DEFAULT_PNL);
+        assertThat(testReconciliation.getInternalClose()).isEqualTo(DEFAULT_INTERNAL_CLOSE);
+        assertThat(testReconciliation.getInternalPnl()).isEqualTo(DEFAULT_INTERNAL_PNL);
 
         // Validate the Reconciliation in Elasticsearch
         Reconciliation reconciliationEs = reconciliationSearchRepository.findOne(testReconciliation.getId());
@@ -174,8 +174,8 @@ public class ReconciliationResourceIntTest {
             .andExpect(jsonPath("$.[*].symbol").value(hasItem(DEFAULT_SYMBOL.toString())))
             .andExpect(jsonPath("$.[*].product").value(hasItem(DEFAULT_PRODUCT.toString())))
             .andExpect(jsonPath("$.[*].position").value(hasItem(DEFAULT_POSITION.intValue())))
-            .andExpect(jsonPath("$.[*].close").value(hasItem(DEFAULT_CLOSE.doubleValue())))
-            .andExpect(jsonPath("$.[*].pnl").value(hasItem(DEFAULT_PNL.intValue())));
+            .andExpect(jsonPath("$.[*].internalClose").value(hasItem(DEFAULT_INTERNAL_CLOSE.doubleValue())))
+            .andExpect(jsonPath("$.[*].internalPnl").value(hasItem(DEFAULT_INTERNAL_PNL.intValue())));
     }
 
     @Test
@@ -192,8 +192,8 @@ public class ReconciliationResourceIntTest {
             .andExpect(jsonPath("$.symbol").value(DEFAULT_SYMBOL.toString()))
             .andExpect(jsonPath("$.product").value(DEFAULT_PRODUCT.toString()))
             .andExpect(jsonPath("$.position").value(DEFAULT_POSITION.intValue()))
-            .andExpect(jsonPath("$.close").value(DEFAULT_CLOSE.doubleValue()))
-            .andExpect(jsonPath("$.pnl").value(DEFAULT_PNL.intValue()));
+            .andExpect(jsonPath("$.internalClose").value(DEFAULT_INTERNAL_CLOSE.doubleValue()))
+            .andExpect(jsonPath("$.internalPnl").value(DEFAULT_INTERNAL_PNL.intValue()));
     }
 
     @Test
@@ -218,8 +218,8 @@ public class ReconciliationResourceIntTest {
             .symbol(UPDATED_SYMBOL)
             .product(UPDATED_PRODUCT)
             .position(UPDATED_POSITION)
-            .close(UPDATED_CLOSE)
-            .pnl(UPDATED_PNL);
+            .internalClose(UPDATED_INTERNAL_CLOSE)
+            .internalPnl(UPDATED_INTERNAL_PNL);
 
         restReconciliationMockMvc.perform(put("/api/reconciliations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -233,8 +233,8 @@ public class ReconciliationResourceIntTest {
         assertThat(testReconciliation.getSymbol()).isEqualTo(UPDATED_SYMBOL);
         assertThat(testReconciliation.getProduct()).isEqualTo(UPDATED_PRODUCT);
         assertThat(testReconciliation.getPosition()).isEqualTo(UPDATED_POSITION);
-        assertThat(testReconciliation.getClose()).isEqualTo(UPDATED_CLOSE);
-        assertThat(testReconciliation.getPnl()).isEqualTo(UPDATED_PNL);
+        assertThat(testReconciliation.getInternalClose()).isEqualTo(UPDATED_INTERNAL_CLOSE);
+        assertThat(testReconciliation.getInternalPnl()).isEqualTo(UPDATED_INTERNAL_PNL);
 
         // Validate the Reconciliation in Elasticsearch
         Reconciliation reconciliationEs = reconciliationSearchRepository.findOne(testReconciliation.getId());
@@ -296,8 +296,8 @@ public class ReconciliationResourceIntTest {
             .andExpect(jsonPath("$.[*].symbol").value(hasItem(DEFAULT_SYMBOL.toString())))
             .andExpect(jsonPath("$.[*].product").value(hasItem(DEFAULT_PRODUCT.toString())))
             .andExpect(jsonPath("$.[*].position").value(hasItem(DEFAULT_POSITION.intValue())))
-            .andExpect(jsonPath("$.[*].close").value(hasItem(DEFAULT_CLOSE.doubleValue())))
-            .andExpect(jsonPath("$.[*].pnl").value(hasItem(DEFAULT_PNL.intValue())));
+            .andExpect(jsonPath("$.[*].internalClose").value(hasItem(DEFAULT_INTERNAL_CLOSE.doubleValue())))
+            .andExpect(jsonPath("$.[*].internalPnl").value(hasItem(DEFAULT_INTERNAL_PNL.intValue())));
     }
 
     @Test

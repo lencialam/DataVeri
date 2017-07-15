@@ -68,7 +68,7 @@ class ReconciliationGatlingTest extends Simulation {
             .exec(http("Create new reconciliation")
             .post("/api/reconciliations")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "symbol":"SAMPLE_TEXT", "product":null, "position":null, "close":null, "pnl":null}""")).asJSON
+            .body(StringBody("""{"id":null, "symbol":"SAMPLE_TEXT", "product":null, "position":null, "internalClose":null, "internalPnl":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_reconciliation_url"))).exitHereIfFailed
             .pause(10)

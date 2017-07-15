@@ -35,11 +35,11 @@ public class Reconciliation implements Serializable {
     @Column(name = "position")
     private Long position;
 
-    @Column(name = "jhi_close")
-    private Double close;
+    @Column(name = "internal_close")
+    private Double internalClose;
 
-    @Column(name = "pnl", precision=10, scale=2)
-    private BigDecimal pnl;
+    @Column(name = "internal_pnl", precision=10, scale=2)
+    private BigDecimal internalPnl;
 
     @OneToOne(optional = false)
     @NotNull
@@ -93,30 +93,30 @@ public class Reconciliation implements Serializable {
         this.position = position;
     }
 
-    public Double getClose() {
-        return close;
+    public Double getInternalClose() {
+        return internalClose;
     }
 
-    public Reconciliation close(Double close) {
-        this.close = close;
+    public Reconciliation internalClose(Double internalClose) {
+        this.internalClose = internalClose;
         return this;
     }
 
-    public void setClose(Double close) {
-        this.close = close;
+    public void setInternalClose(Double internalClose) {
+        this.internalClose = internalClose;
     }
 
-    public BigDecimal getPnl() {
-        return pnl;
+    public BigDecimal getInternalPnl() {
+        return internalPnl;
     }
 
-    public Reconciliation pnl(BigDecimal pnl) {
-        this.pnl = pnl;
+    public Reconciliation internalPnl(BigDecimal internalPnl) {
+        this.internalPnl = internalPnl;
         return this;
     }
 
-    public void setPnl(BigDecimal pnl) {
-        this.pnl = pnl;
+    public void setInternalPnl(BigDecimal internalPnl) {
+        this.internalPnl = internalPnl;
     }
 
     public Report getReport() {
@@ -159,8 +159,8 @@ public class Reconciliation implements Serializable {
             ", symbol='" + getSymbol() + "'" +
             ", product='" + getProduct() + "'" +
             ", position='" + getPosition() + "'" +
-            ", close='" + getClose() + "'" +
-            ", pnl='" + getPnl() + "'" +
+            ", internalClose='" + getInternalClose() + "'" +
+            ", internalPnl='" + getInternalPnl() + "'" +
             "}";
     }
 }

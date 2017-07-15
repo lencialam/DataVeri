@@ -34,11 +34,11 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="jhi_close" type="double">
+            <column name="internal_close" type="double">
                 <constraints nullable="true" />
             </column>
 
-            <column name="pnl" type="decimal(10,2)">
+            <column name="internal_pnl" type="decimal(10,2)">
                 <constraints nullable="true" />
             </column>
             <column name="report_id" type="bigint">

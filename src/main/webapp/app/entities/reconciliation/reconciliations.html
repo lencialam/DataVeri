@@ -39,8 +39,8 @@
                     <th jh-sort-by="symbol"><span>Symbol</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="product"><span>Product</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="position"><span>Position</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="close"><span>Close</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="pnl"><span>Pnl</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="internalClose"><span>Internal Close</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="internalPnl"><span>Internal Pnl</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="report.id"><span>Report</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -51,8 +51,8 @@
                     <td>{{reconciliation.symbol}}</td>
                     <td>{{reconciliation.product}}</td>
                     <td>{{reconciliation.position}}</td>
-                    <td>{{reconciliation.close}}</td>
-                    <td>{{reconciliation.pnl}}</td>
+                    <td>{{reconciliation.internalClose}}</td>
+                    <td>{{reconciliation.internalPnl}}</td>
                     <td>
                         <a ui-sref="report-detail({id:reconciliation.report.id})">{{reconciliation.report.id}}</a>
                     </td>

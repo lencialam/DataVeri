@@ -118,8 +118,8 @@
                                 symbol: null,
                                 product: null,
                                 position: null,
-                                close: null,
-                                pnl: null,
+                                internalClose: null,
+                                internalPnl: null,
                                 id: null
                             };
                         }
