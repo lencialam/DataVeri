@@ -122,6 +122,7 @@
                                 type: null,
                                 strikePrice: null,
                                 cash: null,
+                                share: null,
                                 id: null
                             };
                         }

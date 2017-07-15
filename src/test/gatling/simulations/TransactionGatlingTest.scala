@@ -68,7 +68,7 @@ class TransactionGatlingTest extends Simulation {
             .exec(http("Create new transaction")
             .post("/api/transactions")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "tradeId":null, "tradeTime":"2020-01-01T00:00:00.000Z", "symbol":"SAMPLE_TEXT", "product":null, "type":null, "strikePrice":null, "cash":null}""")).asJSON
+            .body(StringBody("""{"id":null, "tradeId":null, "tradeTime":"2020-01-01T00:00:00.000Z", "symbol":"SAMPLE_TEXT", "product":null, "type":null, "strikePrice":null, "cash":null, "share":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_transaction_url"))).exitHereIfFailed
             .pause(10)

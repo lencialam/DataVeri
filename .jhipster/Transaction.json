@@ -61,6 +61,13 @@
         {
             "fieldName": "cash",
             "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "share",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20170714134229",

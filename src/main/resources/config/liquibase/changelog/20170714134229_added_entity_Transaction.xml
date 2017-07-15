@@ -50,6 +50,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="jhi_share" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
             <column name="trader_id" type="bigint">
                 <constraints nullable="false" />
             </column>

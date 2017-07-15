@@ -68,6 +68,9 @@ public class TransactionResourceIntTest {
     private static final BigDecimal DEFAULT_CASH = new BigDecimal(1);
     private static final BigDecimal UPDATED_CASH = new BigDecimal(2);
 
+    private static final Long DEFAULT_SHARE = 1L;
+    private static final Long UPDATED_SHARE = 2L;
+
     @Autowired
     private TransactionRepository transactionRepository;
 
@@ -114,7 +117,8 @@ public class TransactionResourceIntTest {
             .product(DEFAULT_PRODUCT)
             .type(DEFAULT_TYPE)
             .strikePrice(DEFAULT_STRIKE_PRICE)
-            .cash(DEFAULT_CASH);
+            .cash(DEFAULT_CASH)
+            .share(DEFAULT_SHARE);
         // Add required entity
         Trader trader = TraderResourceIntTest.createEntity(em);
         em.persist(trader);
@@ -151,6 +155,7 @@ public class TransactionResourceIntTest {
         assertThat(testTransaction.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testTransaction.getStrikePrice()).isEqualTo(DEFAULT_STRIKE_PRICE);
         assertThat(testTransaction.getCash()).isEqualTo(DEFAULT_CASH);
+        assertThat(testTransaction.getShare()).isEqualTo(DEFAULT_SHARE);
 
         // Validate the Transaction in Elasticsearch
         Transaction transactionEs = transactionSearchRepository.findOne(testTransaction.getId());
@@ -286,6 +291,24 @@ public class TransactionResourceIntTest {
 
     @Test
     @Transactional
+    public void checkShareIsRequired() throws Exception {
+        int databaseSizeBeforeTest = transactionRepository.findAll().size();
+        // set the field null
+        transaction.setShare(null);
+
+        // Create the Transaction, which fails.
+
+        restTransactionMockMvc.perform(post("/api/transactions")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(transaction)))
+            .andExpect(status().isBadRequest());
+
+        List<Transaction> transactionList = transactionRepository.findAll();
+        assertThat(transactionList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllTransactions() throws Exception {
         // Initialize the database
         transactionRepository.saveAndFlush(transaction);
@@ -301,7 +324,8 @@ public class TransactionResourceIntTest {
             .andExpect(jsonPath("$.[*].product").value(hasItem(DEFAULT_PRODUCT.toString())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].strikePrice").value(hasItem(DEFAULT_STRIKE_PRICE.doubleValue())))
-            .andExpect(jsonPath("$.[*].cash").value(hasItem(DEFAULT_CASH.intValue())));
+            .andExpect(jsonPath("$.[*].cash").value(hasItem(DEFAULT_CASH.intValue())))
+            .andExpect(jsonPath("$.[*].share").value(hasItem(DEFAULT_SHARE.intValue())));
     }
 
     @Test
@@ -321,7 +345,8 @@ public class TransactionResourceIntTest {
             .andExpect(jsonPath("$.product").value(DEFAULT_PRODUCT.toString()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
             .andExpect(jsonPath("$.strikePrice").value(DEFAULT_STRIKE_PRICE.doubleValue()))
-            .andExpect(jsonPath("$.cash").value(DEFAULT_CASH.intValue()));
+            .andExpect(jsonPath("$.cash").value(DEFAULT_CASH.intValue()))
+            .andExpect(jsonPath("$.share").value(DEFAULT_SHARE.intValue()));
     }
 
     @Test
@@ -349,7 +374,8 @@ public class TransactionResourceIntTest {
             .product(UPDATED_PRODUCT)
             .type(UPDATED_TYPE)
             .strikePrice(UPDATED_STRIKE_PRICE)
-            .cash(UPDATED_CASH);
+            .cash(UPDATED_CASH)
+            .share(UPDATED_SHARE);
 
         restTransactionMockMvc.perform(put("/api/transactions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -367,6 +393,7 @@ public class TransactionResourceIntTest {
         assertThat(testTransaction.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testTransaction.getStrikePrice()).isEqualTo(UPDATED_STRIKE_PRICE);
         assertThat(testTransaction.getCash()).isEqualTo(UPDATED_CASH);
+        assertThat(testTransaction.getShare()).isEqualTo(UPDATED_SHARE);
 
         // Validate the Transaction in Elasticsearch
         Transaction transactionEs = transactionSearchRepository.findOne(testTransaction.getId());
@@ -431,7 +458,8 @@ public class TransactionResourceIntTest {
             .andExpect(jsonPath("$.[*].product").value(hasItem(DEFAULT_PRODUCT.toString())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].strikePrice").value(hasItem(DEFAULT_STRIKE_PRICE.doubleValue())))
-            .andExpect(jsonPath("$.[*].cash").value(hasItem(DEFAULT_CASH.intValue())));
+            .andExpect(jsonPath("$.[*].cash").value(hasItem(DEFAULT_CASH.intValue())))
+            .andExpect(jsonPath("$.[*].share").value(hasItem(DEFAULT_SHARE.intValue())));
     }
 
     @Test

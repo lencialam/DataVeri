@@ -43,6 +43,7 @@
                     <th jh-sort-by="type"><span>Type</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="strikePrice"><span>Strike Price</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="cash"><span>Cash</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="share"><span>Share</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="trader.id"><span>Trader</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -57,6 +58,7 @@
                     <td>{{transaction.type}}</td>
                     <td>{{transaction.strikePrice}}</td>
                     <td>{{transaction.cash}}</td>
+                    <td>{{transaction.share}}</td>
                     <td>
                         <a ui-sref="trader-detail({id:transaction.trader.id})">{{transaction.trader.id}}</a>
                     </td>

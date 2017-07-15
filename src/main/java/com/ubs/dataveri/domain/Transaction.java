@@ -57,6 +57,10 @@ public class Transaction implements Serializable {
     @Column(name = "cash", precision=10, scale=2)
     private BigDecimal cash;
 
+    @NotNull
+    @Column(name = "jhi_share", nullable = false)
+    private Long share;
+
     @ManyToOne(optional = false)
     @NotNull
     private Trader trader;
@@ -160,6 +164,19 @@ public class Transaction implements Serializable {
         this.cash = cash;
     }
 
+    public Long getShare() {
+        return share;
+    }
+
+    public Transaction share(Long share) {
+        this.share = share;
+        return this;
+    }
+
+    public void setShare(Long share) {
+        this.share = share;
+    }
+
     public Trader getTrader() {
         return trader;
     }
@@ -204,6 +221,7 @@ public class Transaction implements Serializable {
             ", type='" + getType() + "'" +
             ", strikePrice='" + getStrikePrice() + "'" +
             ", cash='" + getCash() + "'" +
+            ", share='" + getShare() + "'" +
             "}";
     }
 }

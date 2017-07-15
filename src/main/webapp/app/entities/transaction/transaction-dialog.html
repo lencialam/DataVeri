@@ -114,6 +114,22 @@
                     ng-model="vm.transaction.cash"
                     />
         </div>
+        <div class="form-group">
+            <label class="control-label" for="field_share">Share</label>
+            <input type="number" class="form-control" name="share" id="field_share"
+                    ng-model="vm.transaction.share"
+                    required/>
+            <div ng-show="editForm.share.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.share.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.share.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
 
         <div class="form-group">
             <label for="field_trader">Trader</label>
