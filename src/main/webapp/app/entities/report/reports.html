@@ -57,24 +57,20 @@
                         <a ui-sref="trader-detail({id:report.trader.id})">{{report.trader.id}}</a>
                     </td>
                     <td class="text-right">
+                        <div ng-if="report.reconciliation" class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="reconciliation.from({reportId:report.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down">Amend</span>
+                            </button>
+                        </div>
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="report-detail({id:report.id})"
-                                    class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-sm-down"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="report.edit({id:report.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-sm-down"></span>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="report.delete({id:report.id})"
+                                    ui-sref="reconciliation.from({reportId:report.id})"
                                     class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="hidden-sm-down"></span>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down">Amend</span>
                             </button>
                         </div>
                     </td>

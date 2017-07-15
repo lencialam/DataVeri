@@ -131,6 +131,38 @@
                 });
             }]
         })
+        .state('reconciliation.from', {
+                    parent: 'reconciliation',
+                    url: '/from/:reportId',
+                    data: {
+                        authorities: ['ROLE_USER']
+                    },
+                    onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                        $uibModal.open({
+                            templateUrl: 'app/entities/reconciliation/reconciliation-from-dialog.html',
+                            controller: 'ReconciliationFromDialogController',
+                            controllerAs: 'vm',
+                            backdrop: 'static',
+                            size: 'lg',
+                            resolve: {
+                                entity: function () {
+                                    return {
+                                        symbol: null,
+                                        product: null,
+                                        position: null,
+                                        internalClose: null,
+                                        internalPnl: null,
+                                        id: null
+                                    };
+                                }
+                            }
+                        }).result.then(function() {
+                            $state.go('reconciliation', null, { reload: 'reconciliation' });
+                        }, function() {
+                            $state.go('reconciliation');
+                        });
+                    }]
+                })
         .state('reconciliation.edit', {
             parent: 'reconciliation',
             url: '/{id}/edit',
