@@ -164,6 +164,13 @@ public class ReportResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    @Scheduled(cron = "0 1 0 * * *")
+    @Transactional
+    public void persistReport() {
+        log.debug("Persist the report with values of yesterday.");
+        reportRepository.persistReportOnStart();
+    }
+
     //@Scheduled
     //@Transactional
     public void generateReport() {
