@@ -100,40 +100,8 @@
             }]
         })
         .state('reconciliation.new', {
-            parent: 'reconciliation',
-            url: '/new',
-            data: {
-                authorities: ['ROLE_USER']
-            },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
-                    templateUrl: 'app/entities/reconciliation/reconciliation-dialog.html',
-                    controller: 'ReconciliationDialogController',
-                    controllerAs: 'vm',
-                    backdrop: 'static',
-                    size: 'lg',
-                    resolve: {
-                        entity: function () {
-                            return {
-                                symbol: null,
-                                product: null,
-                                position: null,
-                                internalClose: null,
-                                internalPnl: null,
-                                id: null
-                            };
-                        }
-                    }
-                }).result.then(function() {
-                    $state.go('reconciliation', null, { reload: 'reconciliation' });
-                }, function() {
-                    $state.go('reconciliation');
-                });
-            }]
-        })
-        .state('reconciliation.from', {
                     parent: 'reconciliation',
-                    url: '/from/:reportId',
+                    url: '/new/{reportId}',
                     data: {
                         authorities: ['ROLE_USER']
                     },

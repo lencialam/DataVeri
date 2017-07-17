@@ -4,7 +4,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="vm.clear()">&times;</button>
-        <h4 class="modal-title" id="myReconciliationLabel">Create or edit a Reconciliation</h4>
+        <h4 class="modal-title" id="myReconciliationLabel">Edit a Reconciliation</h4>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
@@ -28,6 +28,7 @@
         <div class="form-group">
             <label class="control-label" for="field_product">Product</label>
             <select class="form-control" name="product" ng-model="vm.reconciliation.product" id="field_product">
+
                 <option value="Stock">Stock</option>
                 <option value="Bond">Bond</option>
                 <option value="Forex">Forex</option>
@@ -54,7 +55,7 @@
 
         <div class="form-group">
             <label for="field_report">Report</label>
-            <select class="form-control" id="field_report" name="report" ng-model="vm.reconciliation.report" ng-options="report as report.id for report in vm.reports | orderBy:'id' track by report.id" required>
+            <select class="form-control" id="field_report" name="report" ng-model="vm.reconciliation.report" ng-options="report as report.id for report in vm.reports | orderBy:'id' track by report.id" required disabled>
             </select>
         </div>
         <div ng-show="editForm.report.$invalid">

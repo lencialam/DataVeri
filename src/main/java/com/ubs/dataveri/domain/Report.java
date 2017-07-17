@@ -51,7 +51,7 @@ public class Report implements Serializable {
     private Trader trader;
 
     @OneToOne(mappedBy = "report")
-    @JsonIgnore
+    //@JsonIgnore
     private Reconciliation reconciliation;
 
     public Long getId() {

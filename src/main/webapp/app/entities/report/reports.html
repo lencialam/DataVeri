@@ -59,15 +59,15 @@
                     <td class="text-right">
                         <div ng-if="report.reconciliation" class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="reconciliation.from({reportId:report.id})"
-                                    class="btn btn-danger btn-sm">
+                                    ui-sref="reconciliation.edit({id:report.reconciliation.id})"
+                                    class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-sm-down">Amend</span>
+                                <span class="hidden-sm-down">Edit Amendment</span>
                             </button>
                         </div>
-                        <div class="btn-group flex-btn-group-container">
+                        <div ng-if="!report.reconciliation" class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="reconciliation.from({reportId:report.id})"
+                                    ui-sref="reconciliation.new({reportId:report.id})"
                                     class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-sm-down">Amend</span>

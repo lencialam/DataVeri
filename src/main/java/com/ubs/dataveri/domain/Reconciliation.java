@@ -1,5 +1,8 @@
 package com.ubs.dataveri.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
@@ -44,6 +47,7 @@ public class Reconciliation implements Serializable {
     @OneToOne(optional = false)
     @NotNull
     @JoinColumn(unique = true)
+    @JsonIgnoreProperties("reconciliation")
     private Report report;
 
     public Long getId() {

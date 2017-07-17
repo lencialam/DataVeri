@@ -13,14 +13,14 @@
         vm.reconciliation = entity;
         vm.clear = clear;
         vm.save = save;
-        //vm.reports = Report.query({filter: 'reconciliation-is-null'});
-        console.log($stateParams.reportId);
+        vm.reports = Report.query({filter: 'reconciliation-is-null'});
         vm.report = Report.get({id : $stateParams.reportId});
+        console.log($stateParams.reportId);
         $q.all([vm.reconciliation.$promise, vm.report.$promise]).then(function() {
             if (!vm.reconciliation.report || !vm.reconciliation.report.id) {
                 vm.reconciliation.report = vm.report;
                 console.log(vm.report);
-                //return $q.reject();
+                return $q.reject();
             }
             return Report.get({id : vm.reconciliation.report.id}).$promise;
         }).then(function(report) {
