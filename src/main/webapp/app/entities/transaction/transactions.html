@@ -35,7 +35,6 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="tradeId"><span>Trade Id</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="tradeTime"><span>Trade Time</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="symbol"><span>Symbol</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -50,8 +49,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="transaction in vm.transactions track by transaction.id">
-                    <td><a ui-sref="transaction-detail({id:transaction.id})">{{transaction.id}}</a></td>
-                    <td>{{transaction.tradeId}}</td>
+                    <td><a ui-sref="transaction-detail({id:transaction.id})">{{transaction.tradeId}}</a></td>
                     <td>{{transaction.tradeTime | date:'medium'}}</td>
                     <td>{{transaction.symbol}}</td>
                     <td>{{transaction.product}}</td>
@@ -60,7 +58,7 @@
                     <td>{{transaction.cash}}</td>
                     <td>{{transaction.share}}</td>
                     <td>
-                        <a ui-sref="trader-detail({id:transaction.trader.id})">{{transaction.trader.id}}</a>
+                        <a ui-sref="trader-detail({id:transaction.trader.id})">{{transaction.trader.user.login}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
