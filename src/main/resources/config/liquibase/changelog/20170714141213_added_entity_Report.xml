@@ -42,12 +42,17 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="report_date" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+
             <column name="trader_id" type="bigint">
                 <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="report" columnName="report_date" columnDataType="datetime"/>
         
     </changeSet>
 </databaseChangeLog>

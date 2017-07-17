@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 import com.ubs.dataveri.domain.enumeration.ProductType;
@@ -45,6 +46,10 @@ public class Report implements Serializable {
 
     @Column(name = "internal_pnl", precision=10, scale=2)
     private BigDecimal internalPnl;
+
+    @NotNull
+    @Column(name = "report_date", nullable = false)
+    private ZonedDateTime reportDate;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -127,6 +132,19 @@ public class Report implements Serializable {
         this.internalPnl = internalPnl;
     }
 
+    public ZonedDateTime getReportDate() {
+        return reportDate;
+    }
+
+    public Report reportDate(ZonedDateTime reportDate) {
+        this.reportDate = reportDate;
+        return this;
+    }
+
+    public void setReportDate(ZonedDateTime reportDate) {
+        this.reportDate = reportDate;
+    }
+
     public Trader getTrader() {
         return trader;
     }
@@ -182,6 +200,7 @@ public class Report implements Serializable {
             ", position='" + getPosition() + "'" +
             ", internalClose='" + getInternalClose() + "'" +
             ", internalPnl='" + getInternalPnl() + "'" +
+            ", reportDate='" + getReportDate() + "'" +
             "}";
     }
 }

@@ -53,6 +53,13 @@
         {
             "fieldName": "internalPnl",
             "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "reportDate",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20170714141213",

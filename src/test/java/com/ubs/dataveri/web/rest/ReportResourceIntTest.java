@@ -24,8 +24,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
+import static com.ubs.dataveri.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -55,6 +60,9 @@ public class ReportResourceIntTest {
 
     private static final BigDecimal DEFAULT_INTERNAL_PNL = new BigDecimal(1);
     private static final BigDecimal UPDATED_INTERNAL_PNL = new BigDecimal(2);
+
+    private static final ZonedDateTime DEFAULT_REPORT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_REPORT_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     @Autowired
     private ReportRepository reportRepository;
@@ -100,7 +108,8 @@ public class ReportResourceIntTest {
             .product(DEFAULT_PRODUCT)
             .position(DEFAULT_POSITION)
             .internalClose(DEFAULT_INTERNAL_CLOSE)
-            .internalPnl(DEFAULT_INTERNAL_PNL);
+            .internalPnl(DEFAULT_INTERNAL_PNL)
+            .reportDate(DEFAULT_REPORT_DATE);
         // Add required entity
         Trader trader = TraderResourceIntTest.createEntity(em);
         em.persist(trader);
@@ -135,6 +144,7 @@ public class ReportResourceIntTest {
         assertThat(testReport.getPosition()).isEqualTo(DEFAULT_POSITION);
         assertThat(testReport.getInternalClose()).isEqualTo(DEFAULT_INTERNAL_CLOSE);
         assertThat(testReport.getInternalPnl()).isEqualTo(DEFAULT_INTERNAL_PNL);
+        assertThat(testReport.getReportDate()).isEqualTo(DEFAULT_REPORT_DATE);
 
         // Validate the Report in Elasticsearch
         Report reportEs = reportSearchRepository.findOne(testReport.getId());
@@ -234,6 +244,24 @@ public class ReportResourceIntTest {
 
     @Test
     @Transactional
+    public void checkReportDateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = reportRepository.findAll().size();
+        // set the field null
+        report.setReportDate(null);
+
+        // Create the Report, which fails.
+
+        restReportMockMvc.perform(post("/api/reports")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(report)))
+            .andExpect(status().isBadRequest());
+
+        List<Report> reportList = reportRepository.findAll();
+        assertThat(reportList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllReports() throws Exception {
         // Initialize the database
         reportRepository.saveAndFlush(report);
@@ -247,7 +275,8 @@ public class ReportResourceIntTest {
             .andExpect(jsonPath("$.[*].product").value(hasItem(DEFAULT_PRODUCT.toString())))
             .andExpect(jsonPath("$.[*].position").value(hasItem(DEFAULT_POSITION.intValue())))
             .andExpect(jsonPath("$.[*].internalClose").value(hasItem(DEFAULT_INTERNAL_CLOSE.doubleValue())))
-            .andExpect(jsonPath("$.[*].internalPnl").value(hasItem(DEFAULT_INTERNAL_PNL.intValue())));
+            .andExpect(jsonPath("$.[*].internalPnl").value(hasItem(DEFAULT_INTERNAL_PNL.intValue())))
+            .andExpect(jsonPath("$.[*].reportDate").value(hasItem(sameInstant(DEFAULT_REPORT_DATE))));
     }
 
     @Test
@@ -265,7 +294,8 @@ public class ReportResourceIntTest {
             .andExpect(jsonPath("$.product").value(DEFAULT_PRODUCT.toString()))
             .andExpect(jsonPath("$.position").value(DEFAULT_POSITION.intValue()))
             .andExpect(jsonPath("$.internalClose").value(DEFAULT_INTERNAL_CLOSE.doubleValue()))
-            .andExpect(jsonPath("$.internalPnl").value(DEFAULT_INTERNAL_PNL.intValue()));
+            .andExpect(jsonPath("$.internalPnl").value(DEFAULT_INTERNAL_PNL.intValue()))
+            .andExpect(jsonPath("$.reportDate").value(sameInstant(DEFAULT_REPORT_DATE)));
     }
 
     @Test
@@ -291,7 +321,8 @@ public class ReportResourceIntTest {
             .product(UPDATED_PRODUCT)
             .position(UPDATED_POSITION)
             .internalClose(UPDATED_INTERNAL_CLOSE)
-            .internalPnl(UPDATED_INTERNAL_PNL);
+            .internalPnl(UPDATED_INTERNAL_PNL)
+            .reportDate(UPDATED_REPORT_DATE);
 
         restReportMockMvc.perform(put("/api/reports")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -307,6 +338,7 @@ public class ReportResourceIntTest {
         assertThat(testReport.getPosition()).isEqualTo(UPDATED_POSITION);
         assertThat(testReport.getInternalClose()).isEqualTo(UPDATED_INTERNAL_CLOSE);
         assertThat(testReport.getInternalPnl()).isEqualTo(UPDATED_INTERNAL_PNL);
+        assertThat(testReport.getReportDate()).isEqualTo(UPDATED_REPORT_DATE);
 
         // Validate the Report in Elasticsearch
         Report reportEs = reportSearchRepository.findOne(testReport.getId());
@@ -369,7 +401,8 @@ public class ReportResourceIntTest {
             .andExpect(jsonPath("$.[*].product").value(hasItem(DEFAULT_PRODUCT.toString())))
             .andExpect(jsonPath("$.[*].position").value(hasItem(DEFAULT_POSITION.intValue())))
             .andExpect(jsonPath("$.[*].internalClose").value(hasItem(DEFAULT_INTERNAL_CLOSE.doubleValue())))
-            .andExpect(jsonPath("$.[*].internalPnl").value(hasItem(DEFAULT_INTERNAL_PNL.intValue())));
+            .andExpect(jsonPath("$.[*].internalPnl").value(hasItem(DEFAULT_INTERNAL_PNL.intValue())))
+            .andExpect(jsonPath("$.[*].reportDate").value(hasItem(sameInstant(DEFAULT_REPORT_DATE))));
     }
 
     @Test

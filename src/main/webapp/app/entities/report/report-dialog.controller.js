@@ -12,6 +12,8 @@
 
         vm.report = entity;
         vm.clear = clear;
+        vm.datePickerOpenStatus = {};
+        vm.openCalendar = openCalendar;
         vm.save = save;
         vm.traders = Trader.query();
         vm.reconciliations = Reconciliation.query();
@@ -43,6 +45,10 @@
             vm.isSaving = false;
         }
 
+        vm.datePickerOpenStatus.reportDate = false;
 
+        function openCalendar (date) {
+            vm.datePickerOpenStatus[date] = true;
+        }
     }
 })();

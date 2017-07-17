@@ -42,6 +42,7 @@
                     <th jh-sort-by="internalClose"><span>Internal Close</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="internalPnl"><span>Internal Pnl</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="trader.id"><span>Trader</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="reportDate"><span>Report Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -53,6 +54,7 @@
                     <td>{{report.position}}</td>
                     <td>{{report.internalClose}}</td>
                     <td>{{report.internalPnl}}</td>
+                    <td>{{report.reportDate | date:'medium'}}</td>
                     <td>
                         <a ui-sref="trader-detail({id:report.trader.id})">{{report.trader.id}}</a>
                     </td>

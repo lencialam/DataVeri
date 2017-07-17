@@ -120,6 +120,7 @@
                                 position: null,
                                 internalClose: null,
                                 internalPnl: null,
+                                reportDate: null,
                                 id: null
                             };
                         }

@@ -24,6 +24,10 @@
         <dd>
             <span>{{vm.report.internalPnl}}</span>
         </dd>
+        <dt><span>Report Date</span></dt>
+        <dd>
+            <span>{{vm.report.reportDate | date:'medium'}}</span>
+        </dd>
         <dt><span>Trader</span></dt>
         <dd>
             <a ui-sref="trader-detail({id:vm.report.trader.id})">{{vm.report.trader.id}}</a>

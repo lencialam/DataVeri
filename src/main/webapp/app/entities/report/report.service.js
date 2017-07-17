@@ -4,9 +4,9 @@
         .module('dataVeriApp')
         .factory('Report', Report);
 
-    Report.$inject = ['$resource'];
+    Report.$inject = ['$resource', 'DateUtils'];
 
-    function Report ($resource) {
+    function Report ($resource, DateUtils) {
         var resourceUrl =  'api/reports/:id';
 
         return $resource(resourceUrl, {}, {
@@ -16,6 +16,7 @@
                 transformResponse: function (data) {
                     if (data) {
                         data = angular.fromJson(data);
+                        data.reportDate = DateUtils.convertDateTimeFromServer(data.reportDate);
                     }
                     return data;
                 }
