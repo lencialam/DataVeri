@@ -226,24 +226,6 @@ public class ReportResourceIntTest {
 
     @Test
     @Transactional
-    public void checkInternalCloseIsRequired() throws Exception {
-        int databaseSizeBeforeTest = reportRepository.findAll().size();
-        // set the field null
-        report.setInternalClose(null);
-
-        // Create the Report, which fails.
-
-        restReportMockMvc.perform(post("/api/reports")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(report)))
-            .andExpect(status().isBadRequest());
-
-        List<Report> reportList = reportRepository.findAll();
-        assertThat(reportList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkReportDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = reportRepository.findAll().size();
         // set the field null

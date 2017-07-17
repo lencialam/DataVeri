@@ -40,8 +40,7 @@ public class Report implements Serializable {
     @Column(name = "position", nullable = false)
     private Long position;
 
-    @NotNull
-    @Column(name = "internal_close", nullable = false)
+    @Column(name = "internal_close")
     private Double internalClose;
 
     @Column(name = "internal_pnl", precision=10, scale=2)

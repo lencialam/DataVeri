@@ -35,7 +35,7 @@
             </column>
 
             <column name="internal_close" type="double">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="internal_pnl" type="decimal(10,2)">

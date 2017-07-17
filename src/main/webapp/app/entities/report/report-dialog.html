@@ -63,17 +63,7 @@
             <label class="control-label" for="field_internalClose">Internal Close</label>
             <input type="number" class="form-control" name="internalClose" id="field_internalClose"
                     ng-model="vm.report.internalClose"
-                    required/>
-            <div ng-show="editForm.internalClose.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.internalClose.$error.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.internalClose.$error.number">
-                    This field should be a number.
-                </p>
-            </div>
+                    />
         </div>
         <div class="form-group">
             <label class="control-label" for="field_internalPnl">Internal Pnl</label>

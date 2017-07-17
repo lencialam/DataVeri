@@ -45,10 +45,7 @@
         },
         {
             "fieldName": "internalClose",
-            "fieldType": "Double",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "Double"
         },
         {
             "fieldName": "internalPnl",
