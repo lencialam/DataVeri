@@ -1,6 +1,8 @@
 # DataVeri
 This application was generated using JHipster 4.5.6, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v4.5.6](https://jhipster.github.io/documentation-archive/v4.5.6).
 
+Note that a MySQL database named "DataVeri" needs to be created before running this application.
+
 ## Development
 
 Before you can build this project, you must install and configure the following dependencies on your machine:
