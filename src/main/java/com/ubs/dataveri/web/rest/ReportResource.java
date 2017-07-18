@@ -164,17 +164,32 @@ public class ReportResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    @Scheduled(cron = "0 1 0 * * *")
+    //@Scheduled(cron = "0 1 0 * * *")
+    @Scheduled(initialDelay = 10*1000, fixedRate = 24*60*60*1000)
     @Transactional
     public void persistReport() {
         log.debug("Persist the report with values of yesterday.");
         reportRepository.persistReportOnStart();
     }
 
-    //@Scheduled
-    //@Transactional
+    @GetMapping("/reports/generate")
+    @Scheduled(cron = "* */15 9-16 * * *")
+    @Transactional
     public void generateReport() {
+        log.debug("Update the report with today transactions.");
+        reportRepository.updateReportRows();
+        reportRepository.insertReportRows();
+    }
 
+    @GetMapping("/reports/calculate")
+    @Scheduled(cron = "1 * 16 * * *")
+    @Transactional
+    public void calculateReport() {
+        log.debug("Update the report with today transactions.");
+        reportRepository.updateReportRows();
+        reportRepository.insertReportRows();
+        reportRepository.updateClose();
+        reportRepository.calculatePnl();
     }
 
 }

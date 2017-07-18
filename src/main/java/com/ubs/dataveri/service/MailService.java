@@ -1,5 +1,6 @@
 package com.ubs.dataveri.service;
 
+import com.ubs.dataveri.domain.Reconciliation;
 import com.ubs.dataveri.domain.User;
 
 import io.github.jhipster.config.JHipsterProperties;
@@ -31,6 +32,8 @@ public class MailService {
     private static final String USER = "user";
 
     private static final String BASE_URL = "baseUrl";
+
+    private static final String RECON = "reconciliation";
 
     private final JHipsterProperties jHipsterProperties;
 
@@ -82,7 +85,6 @@ public class MailService {
         String content = templateEngine.process(templateName, context);
         String subject = messageSource.getMessage(titleKey, null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
-
     }
 
     @Async
@@ -101,5 +103,19 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "passwordResetEmail", "email.reset.title");
+    }
+
+    @Async
+    public void sendReconciliationMail(Reconciliation reconciliation) {
+        User user = reconciliation.getReport().getTrader().getUser();
+        log.debug("Sending reminder email about reconciliations to '{}'", user.getEmail());
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable(USER, user);
+        context.setVariable(RECON, reconciliation);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process("reconReminderEmail", context);
+        String subject = messageSource.getMessage("email.recon.title", null, locale);
+        sendEmail(user.getEmail(), subject, content, false, true);
     }
 }

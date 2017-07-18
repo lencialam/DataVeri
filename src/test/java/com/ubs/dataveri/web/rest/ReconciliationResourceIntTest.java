@@ -6,6 +6,7 @@ import com.ubs.dataveri.domain.Reconciliation;
 import com.ubs.dataveri.domain.Report;
 import com.ubs.dataveri.repository.ReconciliationRepository;
 import com.ubs.dataveri.repository.search.ReconciliationSearchRepository;
+import com.ubs.dataveri.service.MailService;
 import com.ubs.dataveri.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -72,6 +73,9 @@ public class ReconciliationResourceIntTest {
     private ExceptionTranslator exceptionTranslator;
 
     @Autowired
+    private MailService mailService;
+
+    @Autowired
     private EntityManager em;
 
     private MockMvc restReconciliationMockMvc;
@@ -81,7 +85,7 @@ public class ReconciliationResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ReconciliationResource reconciliationResource = new ReconciliationResource(reconciliationRepository, reconciliationSearchRepository);
+        ReconciliationResource reconciliationResource = new ReconciliationResource(reconciliationRepository, reconciliationSearchRepository, mailService);
         this.restReconciliationMockMvc = MockMvcBuilders.standaloneSetup(reconciliationResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

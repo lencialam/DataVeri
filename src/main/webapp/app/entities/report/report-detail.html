@@ -40,7 +40,7 @@
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
-    <button type="button" ui-sref="report-detail.edit({id:vm.report.id})" class="btn btn-primary">
+    <button type="button" has-authority="ROLE_ADMIN" ui-sref="report-detail.edit({id:vm.report.id})" class="btn btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-sm-down"> Edit</span>
     </button>

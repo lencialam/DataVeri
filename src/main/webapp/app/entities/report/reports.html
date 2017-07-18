@@ -4,10 +4,16 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="report.new" >
-                    <span class="glyphicon glyphicon-plus"></span>
+                <button class="btn btn-info" ng-click="vm.updateReport()" >
+                    <span class="glyphicon glyphicon-refresh"></span>
                     <span class="hidden-xs-down" >
-                        Create new Report
+                        Update
+                    </span>
+                </button>
+                <button class="btn btn-primary" ng-click="vm.updateCalculate()" >
+                    <span class="glyphicon glyphicon-tasks"></span>
+                    <span class="hidden-xs-down" >
+                        Calculate
                     </span>
                 </button>
             </div>

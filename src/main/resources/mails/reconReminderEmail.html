@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{email.recon.title}">Jhipster New Reconciliation Submitted</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="shortcut icon" href="${baseUrl}/favicon.ico" />
+    </head>
+    <body>
+        <p th:text="#{email.recon.greeting(${user.login})}">
+            Dear
+        </p>
+        <p th:text="#{email.recon.text1}">
+            A new reconciliation of today's pnl report has been submitted. Please access DataVeri to check the changes.
+        </p>
+        <p>
+            <a th:href="@{|${baseUrl}/#/reconciliation/${reconciliation.id}?key=${user.activationKey}|}"
+               th:text="|${user.login}|">Reconciliation Link</a>
+        </p>
+        <p>
+            <span th:text="#{email.recon.text2}">Regards, </span>
+            <br/>
+            <em th:text="#{email.signature}">JHipster.</em>
+        </p>
+    </body>
+</html>

@@ -5,6 +5,7 @@ import com.ubs.dataveri.domain.Reconciliation;
 
 import com.ubs.dataveri.repository.ReconciliationRepository;
 import com.ubs.dataveri.repository.search.ReconciliationSearchRepository;
+import com.ubs.dataveri.service.MailService;
 import com.ubs.dataveri.web.rest.util.HeaderUtil;
 import com.ubs.dataveri.web.rest.util.PaginationUtil;
 import io.swagger.annotations.ApiParam;
@@ -40,11 +41,14 @@ public class ReconciliationResource {
 
     private static final String ENTITY_NAME = "reconciliation";
 
+    private final MailService mailService;
+
     private final ReconciliationRepository reconciliationRepository;
 
     private final ReconciliationSearchRepository reconciliationSearchRepository;
 
-    public ReconciliationResource(ReconciliationRepository reconciliationRepository, ReconciliationSearchRepository reconciliationSearchRepository) {
+    public ReconciliationResource(ReconciliationRepository reconciliationRepository, ReconciliationSearchRepository reconciliationSearchRepository, MailService mailService) {
+        this.mailService = mailService;
         this.reconciliationRepository = reconciliationRepository;
         this.reconciliationSearchRepository = reconciliationSearchRepository;
     }
@@ -65,6 +69,8 @@ public class ReconciliationResource {
         }
         Reconciliation result = reconciliationRepository.save(reconciliation);
         reconciliationSearchRepository.save(result);
+        log.debug("Send reminder email to inform about this reconciliation.");
+        mailService.sendReconciliationMail(reconciliation);
         return ResponseEntity.created(new URI("/api/reconciliations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
