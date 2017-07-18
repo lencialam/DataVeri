@@ -21,7 +21,10 @@ public interface ReportRepository extends JpaRepository<Report,Long> {
     @Query(value="UPDATE report r INNER JOIN\n" +
         "(SELECT t.symbol, SUM(t.jhi_share) AS position FROM transaction t WHERE DATE(t.trade_time) = CURDATE() GROUP BY t.symbol) j\n" +
         "ON j.symbol = r.symbol\n" +
-        "SET r.position = j.position;", nativeQuery = true)
+        "LEFT JOIN (SELECT * FROM report WHERE DATE(report.report_date) = SUBDATE(CURDATE(), 1)) b\n" +
+        "ON j.symbol = b.symbol\n" +
+        "SET r.position = CASE WHEN b.internal_pnl IS NOT NULL THEN j.position + b.position ELSE j.position END\n" +
+        "WHERE DATE(r.report_date) = CURDATE();", nativeQuery = true)
     void updateReportRows();
 
     @Modifying
@@ -38,10 +41,15 @@ public interface ReportRepository extends JpaRepository<Report,Long> {
     void updateClose();
 
     @Modifying
-    @Query(value="UPDATE report a \n" +
-        "LEFT JOIN (SELECT * FROM report WHERE DATE(report_date) = SUBDATE(CURDATE(),1)) b\n" +
-        "ON a.symbol = b.symbol \n" +
-        "SET a.internal_pnl = CASE WHEN b.internal_pnl IS NULL THEN a.internal_close * a.position ELSE a.internal_close * a.position - b.internal_pnl END\n" +
+    @Query(value="UPDATE report a\n" +
+        "LEFT JOIN (SELECT report.symbol, report.internal_pnl FROM report WHERE DATE(report_date) = SUBDATE(CURDATE(),1)) b\n" +
+        "ON a.symbol = b.symbol\n" +
+        "LEFT JOIN (SELECT t.symbol, SUM(t.cash) AS cash FROM transaction t GROUP BY t.symbol) c\n" +
+        "ON a.symbol = c.symbol\n" +
+        "SET a.internal_pnl = CASE WHEN (b.internal_pnl IS NOT NULL AND c.cash IS NOT NULL) THEN a.internal_close * a.position - b.internal_pnl + c.cash\n" +
+        "WHEN (b.internal_pnl IS NULL AND c.cash IS NOT NULL) THEN a.internal_close * a.position + c.cash \n" +
+        "WHEN (b.internal_pnl IS NOT NULL AND c.cash IS NULL) THEN a.internal_close * a.position - b.internal_pnl \n" +
+        "WHEN (b.internal_pnl IS NULL AND c.cash IS NULL) THEN a.internal_close * a.position END\n" +
         "WHERE DATE(a.report_date) = CURDATE();", nativeQuery = true)
     void calculatePnl();
 

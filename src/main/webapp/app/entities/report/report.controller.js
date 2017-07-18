@@ -5,9 +5,9 @@
         .module('dataVeriApp')
         .controller('ReportController', ReportController);
 
-    ReportController.$inject = ['$state', 'Report', 'ReportSearch', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'Reconciliation', 'ReportGenerate', 'ReportCalculate'];
+    ReportController.$inject = ['$state', '$scope', 'Report', 'ReportSearch', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', 'Reconciliation', 'ReportGenerate', 'ReportCalculate'];
 
-    function ReportController($state, Report, ReportSearch, ParseLinks, AlertService, paginationConstants, pagingParams, Reconciliation, ReportGenerate, ReportCalculate) {
+    function ReportController($state, $scope, Report, ReportSearch, ParseLinks, AlertService, paginationConstants, pagingParams, Reconciliation, ReportGenerate, ReportCalculate) {
 
         var vm = this;
 
@@ -96,10 +96,12 @@
 
         function updateReport() {
             ReportGenerate.query();
+            loadAll();
         }
 
         function calculateReport() {
             ReportCalculate.query();
+            loadAll();
         }
     }
 })();
