@@ -65,21 +65,23 @@
                         <a ui-sref="trader-detail({id:report.trader.id})">{{report.trader.user.login}}</a>
                     </td>
                     <td class="text-right">
-                        <div ng-if="report.reconciliation" class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    ui-sref="reconciliation.edit({id:report.reconciliation.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-sm-down">Edit Amendment</span>
-                            </button>
-                        </div>
-                        <div ng-if="!report.reconciliation" class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    ui-sref="report.recon({reportId:report.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-sm-down">Amend</span>
-                            </button>
+                        <div ng-if="vm.checkToday(report.reportDate)">
+                            <div ng-if="report.reconciliation" class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        ui-sref="reconciliation.edit({id:report.reconciliation.id})"
+                                        class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                    <span class="hidden-sm-down">Edit Amendment</span>
+                                </button>
+                            </div>
+                            <div ng-if="!report.reconciliation" class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        ui-sref="report.recon({reportId:report.id})"
+                                        class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                    <span class="hidden-sm-down">Amend</span>
+                                </button>
+                            </div>
                         </div>
                     </td>
                 </tr>

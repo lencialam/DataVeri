@@ -23,6 +23,9 @@
         vm.currentSearch = pagingParams.search;
         vm.updateReport = updateReport;
         vm.calculateReport = calculateReport;
+        vm.checkToday = checkToday;
+
+        vm.today = new Date();
 
         loadAll();
 
@@ -95,13 +98,22 @@
         }
 
         function updateReport() {
-            ReportGenerate.query();
-            loadAll();
+            ReportGenerate.query(function() {
+                loadAll();
+            });
         }
 
         function calculateReport() {
-            ReportCalculate.query();
-            loadAll();
+            ReportCalculate.query(function() {
+                loadAll();
+            });
+        }
+
+        function checkToday(date) {
+            var reportDate = new Date(date);
+            return reportDate.getFullYear() === vm.today.getFullYear()
+                && reportDate.getDate() === vm.today.getDate()
+                && reportDate.getMonth() === vm.today.getMonth();
         }
     }
 })();
