@@ -14,7 +14,7 @@ import org.springframework.data.jpa.repository.*;
 public interface ReportRepository extends JpaRepository<Report,Long> {
     @Modifying
     @Query(value="INSERT INTO report (symbol, product, position, internal_close, internal_pnl, report_date, trader_id)\n" +
-        "SELECT symbol, product, position, NULL, NULL, CURDATE(), trader_id FROM report WHERE DATE(report_date) = SUBDATE(CURDATE(),1)", nativeQuery = true)
+        "SELECT symbol, product, position, NULL, NULL, CURDATE(), trader_id FROM report WHERE DATE(report_date) = SUBDATE(CURDATE(),1) ORDER BY symbol;", nativeQuery = true)
     void persistReportOnStart();
 
     @Modifying
@@ -31,7 +31,7 @@ public interface ReportRepository extends JpaRepository<Report,Long> {
     @Query(value="INSERT INTO report (symbol, product, position, report_date, trader_id)\n" +
         "SELECT t.symbol, t.product, SUM(t.jhi_share), CURDATE(), t.trader_id FROM transaction t \n" +
         "WHERE (t.symbol) NOT IN (SELECT DISTINCT report.symbol FROM report WHERE DATE(report.report_date) = CURDATE()) AND DATE(t.trade_time) = CURDATE()\n" +
-        "GROUP BY t.symbol, t.product, t.trader_id;", nativeQuery = true)
+        "GROUP BY t.symbol, t.product, t.trader_id ORDER BY t.symbol;", nativeQuery = true)
     void insertReportRows();
 
     @Modifying
